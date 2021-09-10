@@ -9,6 +9,7 @@ import co.elastic.maven.opentelemetry.semconv.MavenOtelSemanticAttributes;
 import io.opentelemetry.api.GlobalOpenTelemetry;
 import io.opentelemetry.api.common.Attributes;
 import io.opentelemetry.api.trace.Span;
+import io.opentelemetry.api.trace.SpanKind;
 import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.api.trace.Tracer;
 import io.opentelemetry.api.trace.propagation.W3CTraceContextPropagator;
@@ -85,6 +86,7 @@ public class OtelExecutionListener extends AbstractExecutionListener {
                     .setAttribute(MavenOtelSemanticAttributes.MAVEN_PROJECT_GROUP_ID, project.getGroupId())
                     .setAttribute(MavenOtelSemanticAttributes.MAVEN_PROJECT_ARTIFACT_ID, project.getArtifactId())
                     .setAttribute(MavenOtelSemanticAttributes.MAVEN_PROJECT_VERSION, project.getVersion())
+                    .setSpanKind(SpanKind.SERVER)
                     .startSpan();
             spanRegistry.setRootSpan(span);
         }
